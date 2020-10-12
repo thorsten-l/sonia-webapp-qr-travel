@@ -35,27 +35,27 @@ public class QrCodeController
   @GetMapping(produces = MediaType.IMAGE_PNG_VALUE)
   public ResponseEntity<BufferedImage> qrCode(
     @RequestParam(name = "p", required = false) String pin,
-    @RequestParam(name = "l", required = false) String location )
+    @RequestParam(name = "l", required = false) String location)
   {
-    LOGGER.info("pin = " + pin + ", location=" + location );
+    LOGGER.info("pin = " + pin + ", location=" + location);
 
     BufferedImage image = null;
-    
-    String url = CONFIG.getWebServiceUrl()+"/?p=" + pin;
-    if( location != null )
+
+    String url = CONFIG.getWebServiceUrl() + "/?p=" + pin;
+    if (location != null)
     {
       url += "&l=" + location;
     }
-    
+
     try
     {
-      image = generateQRCodeImage( url );
+      image = generateQRCodeImage(url);
     }
     catch (WriterException ex)
     {
       LOGGER.error("creating qrcode ", ex);
     }
-    
+
     return ResponseEntity.ok(image);
   }
 
@@ -63,13 +63,14 @@ public class QrCodeController
     WriterException
   {
     QRCodeWriter barcodeWriter = new QRCodeWriter();
-    
+
     Map hintMap = new HashMap();
-    hintMap.put( EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.M );
+    hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.M);
 
     BitMatrix bitMatrix
-      = barcodeWriter.encode( barcodeText, BarcodeFormat.QR_CODE, 480, 480, hintMap );
-    
+      = barcodeWriter.encode(barcodeText, BarcodeFormat.QR_CODE, 480, 480,
+        hintMap);
+
     return MatrixToImageWriter.toBufferedImage(bitMatrix);
   }
 
