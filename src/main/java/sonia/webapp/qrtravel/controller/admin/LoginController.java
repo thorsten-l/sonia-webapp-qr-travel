@@ -20,6 +20,7 @@ import sonia.webapp.qrtravel.form.LoginForm;
 import sonia.webapp.qrtravel.ldap.LdapAccount;
 import sonia.webapp.qrtravel.ldap.LdapUtil;
 import sonia.webapp.qrtravel.ldap.LoginAttempt;
+import sonia.webapp.qrtravel.util.ErrorMessage;
 
 /**
  *
@@ -47,6 +48,7 @@ public class LoginController
       page = "redirect:/admin";
     }
     model.addAttribute("token", token);
+    model.addAttribute("errormessge", null );
     token.addToHttpServletResponse(response);
     return page;
   }
@@ -74,7 +76,7 @@ public class LoginController
   {
     String page = "login";
     boolean dataCommitted = false;
-    String errorMessage = null;
+    ErrorMessage errorMessage = null;
     
     LOGGER.debug("Login POST Request");
     QrTravelAdminToken token = QrTravelAdminToken.fromCookieValue(tokenValue);
@@ -114,13 +116,13 @@ public class LoginController
         else
         {
           loginAttempt.incrementCounter();
-          errorMessage = "Zugangsdaten falsch!";
+          errorMessage = new ErrorMessage( "Fehler", "Zugangsdaten falsch!" );
         }
       }
       else
       {
-        errorMessage = "Dieser Account ist für " + CONFIG.
-          getLoginFailedBlockingDuration() + "s gesperrt!";
+        errorMessage = new ErrorMessage( "Account gesperrt", "Dieser Account ist für " + CONFIG.
+          getLoginFailedBlockingDuration() + "s gesperrt!");
       }
     }
 

@@ -31,6 +31,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import sonia.webapp.qrtravel.Config;
 import sonia.webapp.qrtravel.db.Database;
 import sonia.webapp.qrtravel.db.Room;
@@ -43,16 +44,17 @@ public class PdfQrExportController
 
   private final static Config CONFIG = Config.getInstance();
 
-  public static void createQrPage(Document document, Room room)
+  public void createQrPage( PdfDocument pdf, Document document, PdfPage page, Room room)
     throws IOException
   {
+    LOGGER.debug("create qr page for room={}", room.toString());
+    
     PdfFont helveticaBold = PdfFontFactory.createFont(
       StandardFonts.HELVETICA_BOLD, true);
     PdfFont helvetica = PdfFontFactory.createFont(StandardFonts.HELVETICA, true);
     PdfFont courier = PdfFontFactory.createFont(StandardFonts.COURIER, true);
 
-    PdfDocument pdf = document.getPdfDocument();
-    PdfPage page = pdf.addNewPage();
+  
     PdfCanvas canvas = new PdfCanvas(page);
 
     canvas.setFillColor(ColorConstants.LIGHT_GRAY);
@@ -97,7 +99,7 @@ public class PdfQrExportController
     float imageHeight = image.getImageHeight() * scale;
     float imageWidth = image.getImageWidth() * scale;
     float x = (pageWidth - imageWidth) / 2;
-    float y = (pageHeight - imageHeight) / 2 + 80;
+    float y = (pageHeight - imageHeight) / 2 + 56;
 
     canvas.setFillColor(ColorConstants.WHITE);
     canvas.setStrokeColor(ColorConstants.BLACK);
@@ -109,13 +111,13 @@ public class PdfQrExportController
     image.setFixedPosition(x, y);
     document.add(image);
 
-    /////
-    image = new Image(ImageDataFactory.create("logo.png"));
+    image = new Image(ImageDataFactory.create(this.getClass().getResource(
+      "/static/image/logo.png")));
     image.scale(0.5f, 0.5f);
     image.setFixedPosition(30, pageHeight - (image.getImageHeight() / 2) - 30);
     document.add(image);
 
-    text = new Text("\n\n\n\n\n\n\n\nRegistration unter:\n");
+    text = new Text("\n\n\n\n\n\n\n\n\nRegistration unter:\n");
     text.setFontSize(32.0f);
     text.setFont(helvetica);
     paragraph = new Paragraph(text);
@@ -128,7 +130,7 @@ public class PdfQrExportController
     paragraph.add(text);
     document.add(paragraph);
 
-    text = new Text("\nPIN: ");
+    text = new Text("PIN: ");
     text.setFontSize(32.0f);
     text.setFont(helvetica);
     paragraph = new Paragraph(text);
@@ -140,19 +142,23 @@ public class PdfQrExportController
     text.setFont(courier);
     paragraph.add(text);
     document.add(paragraph);
-    document.add(new AreaBreak());
+    document.flush();
   }
 
   @GetMapping(path = "/admin/pdfqrexport",
               produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-  public void httpGetPdfQrExport(HttpServletResponse response)
+  public void httpGetPdfQrExport(
+    @RequestParam(name = "owner", required = true) String owner,
+    HttpServletResponse response)
   {
     LOGGER.debug("httpGetPdfQrExport");
     response.setHeader("Content-Disposition",
       "attachment; filename=QrCodeExport.pdf");
 
     List<Room> rooms = Database.listRooms();
-    
+
+    LOGGER.debug("owner uid = {}", owner);
+
     try
     {
       try (OutputStream out = response.getOutputStream())
@@ -160,7 +166,30 @@ public class PdfQrExportController
         PdfDocument pdf = new PdfDocument(new PdfWriter(out));
         pdf.setDefaultPageSize(PageSize.A4);
         Document document = new Document(pdf, PageSize.A4);
-        createQrPage(document, rooms.get(1));
+        PdfPage page = pdf.addNewPage();
+
+        boolean firstPage = true;
+
+        for (Room room : rooms)
+        {
+          if (room.getOwnerUid().equals(owner) || owner.equals("-ALL-"))
+          {
+            if (firstPage)
+            {
+              firstPage = false;
+            }
+            else
+            {
+              page = pdf.addNewPage();
+              document.add(new AreaBreak());
+            }
+
+            createQrPage( pdf, document, page, room);
+          }
+        }
+        
+        document.close();
+        pdf.close();
       }
     }
     catch (IOException ex)

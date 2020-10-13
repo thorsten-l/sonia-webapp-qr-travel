@@ -11,7 +11,6 @@
         <div class="form-row">
           <div class="d-none d-md-block col-md-3">&nbsp;</div>
           <div class="col-xs-12 col-sm-12 col-md-6 mt-1" style="text-align: center;">
-            <div th:if="${errorMessage}"><br/><div th:text="${errorMessage}"></div></div>
             <div th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}">Error</div>
             <input type="text" size="35" placeholder="Account-ID" th:field="*{userId}" class="form-control input-lg text-center" >
           </div>
