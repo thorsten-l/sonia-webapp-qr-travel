@@ -72,8 +72,8 @@ public class PdfQrExportController
     document.add(paragraph);
 
     /////
-    text = new Text(room.getDescription());
-    text.setFontSize(32.0f);
+    text = new Text(room.getDescription().trim());
+    text.setFontSize(28.0f);
     paragraph = new Paragraph(text);
     paragraph.setFont(helveticaBold);
     paragraph.setTextAlignment(TextAlignment.CENTER);
@@ -148,7 +148,7 @@ public class PdfQrExportController
   @GetMapping(path = "/admin/pdfqrexport",
               produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
   public void httpGetPdfQrExport(
-    @RequestParam(name = "owner", required = true) String owner,
+    @RequestParam(name = "owneruid", required = true) String ownerUid,
     HttpServletResponse response)
   {
     LOGGER.debug("httpGetPdfQrExport");
@@ -157,7 +157,7 @@ public class PdfQrExportController
 
     List<Room> rooms = Database.listRooms();
 
-    LOGGER.debug("owner uid = {}", owner);
+    LOGGER.debug("owner uid = {}", ownerUid);
 
     try
     {
@@ -172,7 +172,7 @@ public class PdfQrExportController
 
         for (Room room : rooms)
         {
-          if (room.getOwnerUid().equals(owner) || owner.equals("-ALL-"))
+          if (room.getOwnerUid().equals(ownerUid) || ownerUid.equals("-ALL-"))
           {
             if (firstPage)
             {

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <div th:replace="fragments :: pageHeader(title='QR-Export')" ></div>
+  <body style="margin: 1em">
+    <div class="container" style='margin-left: 0; margin-right: 0; max-width: 100%; padding: 2em'>
+      <div th:replace="fragments :: adminBodyHeader(title='QR-Export')" ></div>
+    </div>
+
+    <form name="adminQrExportForm" action="#" th:action="@{/admin/qrexport}" method="GET" >
+      <div style='margin-top: 1em; margin-bottom: 1em'>
+        <div class="row">
+
+          <div class="input-group col-sm-11">
+            <div class="input-group-prepend">
+              <label class="input-group-text" 
+                     for="inputOwnerUidId">Eigentümer</label>
+            </div>
+            <input type="text" class="form-control" name="owneruid">
+          </div>
+
+          <div class="col-sm-1" style="white-space: nowrap">
+            <button type="submit" class="btn btn-success"><i class="fas fa-search"></i></button>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <table class="table table-striped table-hover">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Owner UID</th>
+          <th scope="col"># Räume</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><a target='_blank' th:href='@{/admin/pdfqrexport?owneruid=-ALL-}'>Alle Räume</a></td>          
+          <td th:text="${rooms.size()}"></td>          
+        </tr>
+        <tr th:each="room: ${ownersRooms}">
+          <td><a target='_blank' th:href='@{/admin/pdfqrexport?owneruid={owneruid}(owneruid=${room.key})}'><div th:text='${room.key}' th:remove="tag"></div></a></td>
+          <td th:text="${room.value}" />
+        </tr>
+      </tbody>
+    </table>
+
+    <div th:replace="fragments :: bodyFooter" />      
+  </body>
+</html>

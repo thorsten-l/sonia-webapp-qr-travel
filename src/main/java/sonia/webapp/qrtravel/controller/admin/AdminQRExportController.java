@@ -1,5 +1,8 @@
 package sonia.webapp.qrtravel.controller.admin;
 
+import com.google.common.base.Strings;
+import java.util.HashMap;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
@@ -14,8 +17,8 @@ import sonia.webapp.qrtravel.Config;
 import sonia.webapp.qrtravel.QrTravelAdminToken;
 import static sonia.webapp.qrtravel.QrTravelAdminToken.QR_TRAVEL_ADMIN_TOKEN;
 import static sonia.webapp.qrtravel.QrTravelAdminToken.UNKNOWN_ADMIN_TOKEN;
-import sonia.webapp.qrtravel.form.AdminRoomForm;
-import sonia.webapp.qrtravel.form.RoomPinForm;
+import sonia.webapp.qrtravel.db.Database;
+import sonia.webapp.qrtravel.db.Room;
 import sonia.webapp.qrtravel.util.ErrorMessage;
 
 /**
@@ -24,30 +27,63 @@ import sonia.webapp.qrtravel.util.ErrorMessage;
  */
 @Controller
 @Scope("session")
-public class AdminTraceContactsController
+public class AdminQRExportController
 {
   private final static String QR_TRAVEL_ERROR_MESSAGE = "QR_TRAVEL_ERROR_MESSAGE";
 
-  private final static Logger LOGGER = LoggerFactory.getLogger(AdminTraceContactsController.class.getName());
+  private final static Logger LOGGER = LoggerFactory.getLogger(
+    AdminQRExportController.class.getName());
 
   private final static Config CONFIG = Config.getInstance();
 
-  @GetMapping("/admin/trace-contacts")
+  @GetMapping("/admin/qrexport")
   public String httpGetAdminTracePage(
     @CookieValue(value = QR_TRAVEL_ADMIN_TOKEN,
                  defaultValue = UNKNOWN_ADMIN_TOKEN) String tokenValue,
-    HttpServletResponse response, HttpServletRequest request, Model model )
+    HttpServletResponse response, HttpServletRequest request, Model model,
+    @RequestParam(name = "owneruid", required = false) String ownerUid)
   {
-    LOGGER.debug("Admin trace contacts GET request");
+    LOGGER.debug("Admin qr export GET request");
     QrTravelAdminToken token = QrTravelAdminToken.fromCookieValue(tokenValue);
 
     ErrorMessage errorMessage = (ErrorMessage) request.getSession(true).
       getAttribute(QR_TRAVEL_ERROR_MESSAGE);
     LOGGER.debug("Error message ({})", errorMessage);
 
+    List<Room> rooms = Database.listRooms();
+    HashMap<String, Integer> ownersRooms = new HashMap<>();
+
+    if (!Strings.isNullOrEmpty(ownerUid))
+    {
+      ownerUid = ownerUid.trim().toLowerCase();
+
+      for (Room r : rooms)
+      {
+        if (r.getOwnerUid().toLowerCase().startsWith(ownerUid))
+        {
+          int value = 0;
+
+          LOGGER.debug(r.getOwnerUid() + " " + r.getDescription());
+
+          try
+          {
+            value = ownersRooms.get(r.getOwnerUid());
+          }
+          catch (NullPointerException e)
+          {
+            //
+          }
+          ownersRooms.put(r.getOwnerUid(), ++value);
+          LOGGER.debug(r.getOwnerUid() + " " + value + " " + ownersRooms.size());
+        }
+      }
+    }
+
     model.addAttribute("token", token);
+    model.addAttribute("rooms", rooms);
+    model.addAttribute("ownersRooms", ownersRooms);
     model.addAttribute("errorMessage", errorMessage);
     token.addToHttpServletResponse(response);
-    return "adminTrace";
+    return "adminQRExport";
   }
 }
