@@ -1,6 +1,8 @@
 package sonia.webapp.qrtravel.controller.admin;
 
 import com.google.common.base.Strings;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +21,8 @@ import static sonia.webapp.qrtravel.QrTravelAdminToken.QR_TRAVEL_ADMIN_TOKEN;
 import static sonia.webapp.qrtravel.QrTravelAdminToken.UNKNOWN_ADMIN_TOKEN;
 import sonia.webapp.qrtravel.db.Database;
 import sonia.webapp.qrtravel.db.Room;
+import sonia.webapp.qrtravel.ldap.LdapAccount;
+import sonia.webapp.qrtravel.ldap.LdapUtil;
 import sonia.webapp.qrtravel.util.ErrorMessage;
 
 /**
@@ -37,7 +41,7 @@ public class AdminQRExportController
   private final static Config CONFIG = Config.getInstance();
 
   @GetMapping("/admin/qrexport")
-  public String httpGetAdminTracePage(
+  public String httpGetAdminQrExportPage(
     @CookieValue(value = QR_TRAVEL_ADMIN_TOKEN,
                  defaultValue = UNKNOWN_ADMIN_TOKEN) String tokenValue,
     HttpServletResponse response, HttpServletRequest request, Model model,
@@ -51,7 +55,7 @@ public class AdminQRExportController
     LOGGER.debug("Error message ({})", errorMessage);
 
     List<Room> rooms = Database.listRooms();
-    HashMap<String, Integer> ownersRooms = new HashMap<>();
+    HashMap<String, QRExportInfo> ownersRooms = new HashMap<>();
 
     if (!Strings.isNullOrEmpty(ownerUid))
     {
@@ -59,29 +63,59 @@ public class AdminQRExportController
 
       for (Room r : rooms)
       {
-        if (r.getOwnerUid().toLowerCase().startsWith(ownerUid))
-        {
-          int value = 0;
+        String roomOwner = r.getOwnerUid().trim().toLowerCase();
 
-          LOGGER.debug(r.getOwnerUid() + " " + r.getDescription());
+        if (roomOwner.startsWith(ownerUid))
+        {
+          QRExportInfo exportInfo = null;
+
+          LOGGER.debug(roomOwner + " " + r.getDescription());
 
           try
           {
-            value = ownersRooms.get(r.getOwnerUid());
+            exportInfo = ownersRooms.get(roomOwner);
           }
           catch (NullPointerException e)
           {
             //
           }
-          ownersRooms.put(r.getOwnerUid(), ++value);
-          LOGGER.debug(r.getOwnerUid() + " " + value + " " + ownersRooms.size());
+
+          if (exportInfo == null)
+          {
+            LdapAccount account = LdapUtil.searchForUid(roomOwner);
+            
+            if ( account != null )
+            {
+              exportInfo = new QRExportInfo(roomOwner, account.getGivenName()
+              + " " + account.getSn(), account.getMail(), account.getLocality());
+            }
+            else
+            {
+              exportInfo = new QRExportInfo( roomOwner, "", "", r.getDomain() );
+            }
+          }
+
+          exportInfo.incrementRoom();
+
+          ownersRooms.put(roomOwner, exportInfo);
+          LOGGER.debug(roomOwner + " " + exportInfo + " " + ownersRooms.size());
         }
       }
     }
 
+    ArrayList<QRExportInfo> infoList = new ArrayList<>();
+    
+    String[] keys = ownersRooms.keySet().toArray(new String[0]);
+    Arrays.sort( keys );
+    
+    for( String k : keys )
+    {
+      infoList.add( ownersRooms.get(k));
+    }
+    
     model.addAttribute("token", token);
     model.addAttribute("rooms", rooms);
-    model.addAttribute("ownersRooms", ownersRooms);
+    model.addAttribute("ownersRooms", infoList);
     model.addAttribute("errorMessage", errorMessage);
     token.addToHttpServletResponse(response);
     return "adminQRExport";
