@@ -2,6 +2,7 @@ package sonia.webapp.qrtravel;
 
 import sonia.webapp.qrtravel.cronjob.CheckExpiredJob;
 import com.google.common.base.Strings;
+import com.itextpdf.kernel.pdf.PdfWriter;
 import java.io.IOException;
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
@@ -22,6 +23,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import sonia.webapp.qrtravel.cronjob.CheckMaxDurationJob;
 import sonia.webapp.qrtravel.cronjob.InfluxDbStatisticsJob;
 import sonia.webapp.qrtravel.db.Database;
+import sonia.webapp.qrtravel.util.PdfQrExporter;
 
 /**
  *
@@ -51,6 +53,47 @@ public class QrTravelApplication
     {
       System.out.println(e.getMessage());
       options.setHelp(true);
+    }
+
+    if (options.isPdfQrExport())
+    {
+      LOGGER.info("Writing output file: {}", options.getPdfOutputFilename());
+
+      if (Strings.isNullOrEmpty(options.getPdfOutputFilename())
+        || Strings.isNullOrEmpty(options.getPdfRoomPin())
+        || Strings.isNullOrEmpty(options.getPdfRoomType())
+        || Strings.isNullOrEmpty(options.getPdfRoomDescripton())
+        || Strings.isNullOrEmpty(options.getPdfServiceUrl()))
+      {
+        System.out.println("\nERROR: PDF export parameter is missing");
+        System.out.println("--------------------------------------");
+        parser.printUsage(System.out);
+      }
+      else
+      {
+        if (options.getPdfSeatRows() == 0)
+        {
+          PdfQrExporter.generateDocument(
+            new PdfWriter(options.getPdfOutputFilename()),
+            options.getPdfRoomType(),
+            options.getPdfRoomDescripton(),
+            options.getPdfServiceUrl(),
+            options.getPdfRoomPin());
+        }
+        else
+        {
+          PdfQrExporter.generateDocument(
+            new PdfWriter(options.getPdfOutputFilename()),
+            options.getPdfRoomType(),
+            options.getPdfRoomDescripton(),
+            options.getPdfServiceUrl(),
+            options.getPdfRoomPin(),
+            options.getPdfSeatRows(),
+            options.getPdfSeatColumns()
+          );
+        }
+      }
+      System.exit(0);
     }
 
     if (options.isHelp())
@@ -131,8 +174,8 @@ public class QrTravelApplication
 
       CronTrigger trigger = TriggerBuilder.newTrigger()
         .withIdentity("trigger3", "group3")
-        .withSchedule(CronScheduleBuilder.cronSchedule(config.getInfluxDbCron()))
-        .build();
+        .withSchedule(CronScheduleBuilder.cronSchedule(config.getInfluxDbCron())).
+        build();
 
       scheduler.scheduleJob(job, trigger);
     }
