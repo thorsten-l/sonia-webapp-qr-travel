@@ -13,7 +13,7 @@ import sonia.webapp.qrtravel.Config;
 
 /**
  *
- * @author Thorsten Ludewig <t.ludewig@ostfalia.de>
+ * @author Thorsten Ludewig (t.ludewig@ostfalia.de)
  */
 public class InfluxDbWriter
 {

@@ -29,6 +29,10 @@ import sonia.webapp.qrtravel.db.Room;
 import sonia.webapp.qrtravel.ldap.LdapAccount;
 import sonia.webapp.qrtravel.ldap.LdapUtil;
 
+/**
+ * 
+ * @author Thorsten Ludewig (t.ludewig@ostfalia.de)
+ */
 @Controller
 public class RegistrationController
 {

@@ -7,14 +7,17 @@ import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactor
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.stereotype.Component;
 
+/**
+ * @author Thorsten Ludewig (t.ludewig@ostfalia.de)
+ */
 @Component
 public class WebServerCustomizer
   implements WebServerFactoryCustomizer<TomcatServletWebServerFactory>
 {
-  
+
   private final static Logger LOGGER = LoggerFactory.getLogger(
     WebServerCustomizer.class.getName());
-  
+
   private final static Config CONFIG = Config.getInstance();
 
   @Override
@@ -22,15 +25,15 @@ public class WebServerCustomizer
   {
     LOGGER.info("WebServerCustomizer.customize");
     factory.setPort(CONFIG.getWebServicePort());
-    
-    if ( ! Strings.isNullOrEmpty(CONFIG.getContextPath()))
+
+    if (!Strings.isNullOrEmpty(CONFIG.getContextPath()))
     {
-      LOGGER.info( "set context path to: " + CONFIG.getContextPath());
+      LOGGER.info("set context path to: " + CONFIG.getContextPath());
       factory.setContextPath(CONFIG.getContextPath());
     }
     else
     {
-      LOGGER.info( "set context path to root" );
+      LOGGER.info("set context path to root");
       factory.setContextPath("");
     }
   }

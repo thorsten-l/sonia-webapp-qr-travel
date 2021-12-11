@@ -1,7 +1,6 @@
 package sonia.commons.crypt.cipher;
 
 //~--- JDK imports ------------------------------------------------------------
-
 import sonia.commons.crypt.converter.ByteConverter;
 import sonia.commons.crypt.converter.HexByteConverter;
 import java.io.UnsupportedEncodingException;
@@ -19,58 +18,55 @@ import javax.crypto.spec.SecretKeySpec;
 
 /**
  *
- * @author Thorsten Ludewig <t.ludewig@ostfalia.de>
+ * @author Thorsten Ludewig (t.ludewig@ostfalia.de)
  * @since 1.1.0
  */
 public final class AesSimpleCipher implements SimpleCipher
 {
 
-  /** Field description */
+  /**
+   * Field description
+   */
   private static final String CHARSET = "UTF-8";
 
-  /** Field description */
+  /**
+   * Field description
+   */
   private static final String CIPHER_ALGORITHM = "AES";
 
-  /** Field description */
+  /**
+   * Field description
+   */
   private static final int DEFAULT_KEYITERATIONS = 1024;
 
-  /** Field description */
+  /**
+   * Field description
+   */
   private static final int DEFAULT_SALTLENGTH = 8;
 
-  /** Field description */
+  /**
+   * Field description
+   */
   private static final String KEY_ALGORITHM = "AES";
 
-  /** Field description */
+  /**
+   * Field description
+   */
   private static final String KEY_DIGEST = "SHA-1";
 
-  /** Field description */
+  /**
+   * Field description
+   */
   private static final int MAX_KEYSALT = 12;
 
   //~--- constructors ---------------------------------------------------------
-
-  /**
-   * Constructs ...
-   *
-   *
-   * @param key
-   */
+ 
   public AesSimpleCipher(char[] key)
   {
     this(new HexByteConverter(), new SecureRandom(), DEFAULT_KEYITERATIONS,
       null, key, DEFAULT_SALTLENGTH);
   }
 
-  /**
-   * Constructs ...
-   *
-   *
-   * @param converter
-   * @param random
-   * @param keyIterations
-   * @param keySalt
-   * @param key
-   * @param saltLength
-   */
   private AesSimpleCipher(ByteConverter converter, Random random,
     int keyIterations, byte[] keySalt, char[] key, int saltLength)
   {
@@ -143,26 +139,12 @@ public final class AesSimpleCipher implements SimpleCipher
   }
 
   //~--- methods --------------------------------------------------------------
-
-  /**
-   * Method description
-   *
-   *
-   * @return
-   */
+ 
   public static Builder builder()
   {
     return new Builder();
   }
 
-  /**
-   * Method description
-   *
-   *
-   * @param value
-   *
-   * @return
-   */
   @Override
   public String decrypt(String value)
   {
@@ -186,14 +168,6 @@ public final class AesSimpleCipher implements SimpleCipher
     }
   }
 
-  /**
-   * Method description
-   *
-   *
-   * @param value
-   *
-   * @return
-   */
   @Override
   public String encrypt(String value)
   {
@@ -223,17 +197,6 @@ public final class AesSimpleCipher implements SimpleCipher
     return encrypted;
   }
 
-  /**
-   * Method description
-   *
-   *
-   *
-   * @param salt
-   * @param keyChars
-   * @param iterations
-   *
-   * @return
-   */
   private SecretKey createSecretKey(byte[] salt, char[] keyChars,
     int iterations)
   {
@@ -275,47 +238,26 @@ public final class AesSimpleCipher implements SimpleCipher
   }
 
   //~--- inner classes --------------------------------------------------------
-
   /**
    * Class description
    *
-   *
-   * @version        Enter version here..., 13/07/10
-   * @author Thorsten Ludewig <t.ludewig@ostfalia.de>        Enter your name here...
+   * @author Thorsten Ludewig (t.ludewig@ostfalia.de)
    */
   public static final class Builder
   {
 
-    /**
-     * Constructs ...
-     *
-     */
-    private Builder() {}
+    private Builder()
+    {
+    }
 
     //~--- methods ------------------------------------------------------------
-
-    /**
-     * Method description
-     *
-     *
-     * @param key
-     *
-     * @return
-     */
+ 
     public AesSimpleCipher build(char[] key)
     {
       return new AesSimpleCipher(converter, random, keyIterations, keySalt,
         key, saltLength);
     }
 
-    /**
-     * Method description
-     *
-     *
-     * @param converter
-     *
-     * @return
-     */
     public Builder converter(ByteConverter converter)
     {
       this.converter = converter;
@@ -323,14 +265,6 @@ public final class AesSimpleCipher implements SimpleCipher
       return this;
     }
 
-    /**
-     * Method description
-     *
-     *
-     * @param keyIterations
-     *
-     * @return
-     */
     public Builder keyIterations(int keyIterations)
     {
       this.keyIterations = keyIterations;
@@ -338,14 +272,6 @@ public final class AesSimpleCipher implements SimpleCipher
       return this;
     }
 
-    /**
-     * Method description
-     *
-     *
-     * @param keySalt
-     *
-     * @return
-     */
     public Builder keySalt(byte[] keySalt)
     {
       this.keySalt = keySalt;
@@ -353,14 +279,6 @@ public final class AesSimpleCipher implements SimpleCipher
       return this;
     }
 
-    /**
-     * Method description
-     *
-     *
-     * @param random
-     *
-     * @return
-     */
     public Builder random(Random random)
     {
       this.random = random;
@@ -368,14 +286,6 @@ public final class AesSimpleCipher implements SimpleCipher
       return this;
     }
 
-    /**
-     * Method description
-     *
-     *
-     * @param saltLength
-     *
-     * @return
-     */
     public Builder saltLength(int saltLength)
     {
       this.saltLength = saltLength;
@@ -384,38 +294,27 @@ public final class AesSimpleCipher implements SimpleCipher
     }
 
     //~--- fields -------------------------------------------------------------
-
-    /** Field description */
+ 
     private ByteConverter converter;
 
-    /** Field description */
     private int keyIterations = DEFAULT_KEYITERATIONS;
 
-    /** Field description */
     private byte[] keySalt;
 
-    /** Field description */
     private Random random;
 
-    /** Field description */
     private int saltLength = DEFAULT_SALTLENGTH;
   }
 
-
   //~--- fields ---------------------------------------------------------------
 
-  /** Field description */
   private ByteConverter converter;
 
-  /** Field description */
   private Cipher decrypter;
 
-  /** Field description */
   private Cipher encrypter;
 
-  /** Field description */
   private Random random;
 
-  /** Field description */
   private int saltLength;
 }

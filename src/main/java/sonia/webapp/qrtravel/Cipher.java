@@ -4,7 +4,7 @@ import sonia.commons.crypt.cipher.AesSimpleCipher;
  
 /**
  *
- * @author Thorsten Ludewig <t.ludewig@ostfalia.de>
+ * @author Thorsten Ludewig (t.ludewig@ostfalia.de)
  */
 public final class Cipher 
 {
@@ -16,25 +16,11 @@ public final class Cipher
   private static final AesSimpleCipher CIPHER = 
     AesSimpleCipher.builder().build(KEY);
 
-  /**
-   * Encrypt an plaint text value.
-   *
-   * @param value value to decrypt
-   *
-   * @return encrypted value
-   */   
   public static String encrypt(String value)
   {
     return CIPHER.encrypt(value);
   }
 
-  /**
-   * Decrypt an encrypted value.
-   *
-   * @param value value to encrypt
-   *
-   * @return decrypted value
-   */
   public static String decrypt(String value)
   {
     return CIPHER.decrypt(value);

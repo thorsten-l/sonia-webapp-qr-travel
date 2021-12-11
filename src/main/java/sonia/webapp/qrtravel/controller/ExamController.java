@@ -30,6 +30,10 @@ import sonia.webapp.qrtravel.ldap.LdapAccount;
 import sonia.webapp.qrtravel.ldap.LdapUtil;
 import sonia.webapp.qrtravel.ldap.LoginAttempt;
 
+/**
+ * 
+ * @author Thorsten Ludewig (t.ludewig@ostfalia.de)
+ */
 @Controller
 public class ExamController
 {

@@ -4,7 +4,7 @@ import lombok.Getter;
 
 /**
  *
- * @author Dr.-Ing. Thorsten Ludewig <t.ludewig@ostfalia.de>
+ * @author Thorsten Ludewig (t.ludewig@ostfalia.de)
  */
 public class Address
 {

@@ -7,6 +7,10 @@ import org.springframework.web.bind.annotation.RestController;
 import sonia.webapp.qrtravel.db.Database;
 import sonia.webapp.qrtravel.db.Room;
 
+/**
+ * 
+ * @author Thorsten Ludewig (t.ludewig@ostfalia.de)
+ */
 @RestController
 public class RoomController
 {

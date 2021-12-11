@@ -23,6 +23,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import sonia.webapp.qrtravel.Config;
 
+/**
+ * 
+ * @author Thorsten Ludewig (t.ludewig@ostfalia.de)
+ */
 @RestController
 @RequestMapping("/qrcode")
 public class QrCodeController

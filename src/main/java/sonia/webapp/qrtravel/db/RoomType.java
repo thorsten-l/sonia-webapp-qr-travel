@@ -11,7 +11,7 @@ import lombok.ToString;
 
 /**
  *
- * @author Thorsten Ludewig <t.ludewig@ostfalia.de>
+ * @author Thorsten Ludewig (t.ludewig@ostfalia.de)
  */
 @Entity(name = "roomtype")
 @NamedQueries(

@@ -9,12 +9,13 @@ import sonia.webapp.qrtravel.QrTravelToken;
 
 /**
  *
- * @author Thorsten Ludewig <t.ludewig@ostfalia.de>
+ * @author Thorsten Ludewig (t.ludewig@ostfalia.de)
  */
 @ToString
 public class ExamForm implements AttendeeForm
 {
-  
+
+  @Override
   public void setAttendeeData(String pin, QrTravelToken token)
   {
     this.pin = pin;
@@ -25,45 +26,44 @@ public class ExamForm implements AttendeeForm
     this.userId = token.getUid();
     this.password = token.getPassword();
   }
-  
-  
+
   @NotNull
-  @Size( min = 6, message = "Minimum 6 Zeichen" )  
+  @Size(min = 6, message = "Minimum 6 Zeichen")
   @Getter
   @Setter
   private String pin;
-    
+
   @NotNull
-  @Size( min = 4, message = "Minimum 4 Zeichen" )
+  @Size(min = 4, message = "Minimum 4 Zeichen")
   @Getter
   @Setter
   private String phone;
-  
+
   @NotNull
   @Getter
   @Setter
-  @Size( min = 2, message = "Minimum 2 Zeichen" )
+  @Size(min = 2, message = "Minimum 2 Zeichen")
   private String userId;
-  
+
   @NotNull
   @Getter
   @Setter
-  @Size( min = 6, message = "Minimum 6 Zeichen" )
+  @Size(min = 6, message = "Minimum 6 Zeichen")
   private String password;
-  
+
   @Getter
   @Setter
   private String location;
-  
+
   @Getter
   @Setter
   @NotNull
-  @Size( min = 2, message = "Minimum 2 Zeichen" )
+  @Size(min = 2, message = "Minimum 2 Zeichen")
   private String street;
 
   @Getter
   @Setter
   @NotNull
-  @Size( min = 2, message = "Minimum 2 Zeichen" )
+  @Size(min = 2, message = "Minimum 2 Zeichen")
   private String city;
 }

@@ -6,7 +6,7 @@ import lombok.ToString;
 
 /**
  *
- * @author Thorsten Ludewig <t.ludewig@ostfalia.de>
+ * @author Thorsten Ludewig (t.ludewig@ostfalia.de)
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString

@@ -9,20 +9,13 @@ import org.slf4j.LoggerFactory;
 
 /**
  *
- * @author Thorsten Ludewig <t.ludewig@ostfalia.de>
+ * @author Thorsten Ludewig (t.ludewig@ostfalia.de)
  */
 public class PasswordSerializer extends JsonSerializer<String>
 {
   private final static Logger LOGGER = LoggerFactory.getLogger(
     PasswordSerializer.class.getName());
 
-  /**
-   *
-   * @param value
-   * @param generator
-   * @param provider
-   * @throws IOException
-   */
   @Override
   public void serialize(String value, JsonGenerator generator, SerializerProvider provider)
     throws IOException

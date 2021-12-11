@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  *
- * @author Thorsten Ludewig <t.ludewig@ostfalia.de>
+ * @author Thorsten Ludewig (t.ludewig@ostfalia.de)
  */
 @XmlRootElement
 @JsonIgnoreProperties(ignoreUnknown = true)

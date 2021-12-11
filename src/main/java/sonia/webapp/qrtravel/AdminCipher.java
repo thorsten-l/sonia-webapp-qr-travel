@@ -4,7 +4,7 @@ import sonia.commons.crypt.cipher.AesSimpleCipher;
  
 /**
  *
- * @author Thorsten Ludewig <t.ludewig@ostfalia.de>
+ * @author Thorsten Ludewig (t.ludewig@ostfalia.de)
  */
 public final class AdminCipher 
 {
@@ -30,25 +30,11 @@ public final class AdminCipher
     return SINGLETON;
   }
  
-  /**
-   * Encrypt an plaint text value.
-   *
-   * @param value value to decrypt
-   *
-   * @return encrypted value
-   */   
   public String encrypt(String value)
   {
     return aesChipher.encrypt(value);
   }
 
-  /**
-   * Decrypt an encrypted value.
-   *
-   * @param value value to encrypt
-   *
-   * @return decrypted value
-   */
   public String decrypt(String value)
   {
     return aesChipher.decrypt(value);

@@ -15,6 +15,10 @@ import static sonia.webapp.qrtravel.QrTravelToken.UNKNOWN_TOKEN;
 import sonia.webapp.qrtravel.db.Database;
 import sonia.webapp.qrtravel.db.Room;
 
+/**
+ * 
+ * @author Thorsten Ludewig (t.ludewig@ostfalia.de)
+ */
 @Controller
 public class HomeController
 {

@@ -18,7 +18,7 @@ import sonia.webapp.qrtravel.Config;
 
 /**
  *
- * @author Thorsten Ludewig <t.ludewig@ostfalia.de>
+ * @author Thorsten Ludewig (t.ludewig@ostfalia.de)
  */
 public final class LdapConnectionFactory
 {
@@ -37,14 +37,6 @@ public final class LdapConnectionFactory
   
   //~--- get methods ----------------------------------------------------------
  
-  /**
-   * Method description
-   *
-   *
-   * @return
-   *
-   * @throws LDAPException
-   */
   public static LDAPConnection getConnection()
     throws LDAPException
   {
@@ -77,12 +69,6 @@ public final class LdapConnectionFactory
 
   //~--- methods --------------------------------------------------------------
 
-  /**
-   * Method description
-   *
-   *
-   * @return
-   */
   private static SSLSocketFactory createSSLSocketFactory()
   {
 

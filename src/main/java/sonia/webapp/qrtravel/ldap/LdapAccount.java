@@ -8,7 +8,7 @@ import org.apache.tomcat.util.codec.binary.Base64;
 
 /**
  *
- * @author Thorsten Ludewig <t.ludewig@ostfalia.de>
+ * @author Thorsten Ludewig (t.ludewig@ostfalia.de)
  */
 @ToString
 public class LdapAccount

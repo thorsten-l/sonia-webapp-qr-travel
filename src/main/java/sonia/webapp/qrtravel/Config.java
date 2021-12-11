@@ -24,47 +24,30 @@ import java.util.Random;
 import sonia.commons.crypt.util.HEX;
 
 /**
- * Class description
  *
- *
- * @author Dr.-Ing. Thorsten Ludewig <t.ludewig@ostfalia.de>
+ * @author Thorsten Ludewig (t.ludewig@ostfalia.de)
  */
-@JsonIgnoreProperties(ignoreUnknown = true, value = { "cipherKey" })
+@JsonIgnoreProperties(ignoreUnknown = true, value =
+                    {
+                      "cipherKey"
+})
 @ToString
 public class Config
 {
 
-  /**
-   * Field description
-   */
   private final static String CONFIG_NAME = "config.json";
 
-  /**
-   * Field description
-   */
   private final static String CONFIG_DIRECTORY_NAME = "config";
 
-  /**
-   * Field description
-   */
   private final static ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
-  /**
-   * Field description
-   */
   private final static Logger LOGGER = LoggerFactory.getLogger(
     Config.class.getName());
 
-  /**
-   * Field description
-   */
   private static String APP_HOME;
 
   private static String cipher = null;
 
-  /**
-   * Field description
-   */
   private static Config config;
 
   public Config()
@@ -102,41 +85,32 @@ public class Config
     enableCheckExpired = true;
     checkExpiredCron = "0 5 0 * * ?";
     expirationTimeInDays = 21;
-    
+
     enableCheckMaxDuration = true;
     checkMaxDurationCron = "0 0/5 * * * ?";
     maxDurationInMinutes = 12 * 60;
-    
+
     maxLoginAttempts = 3;
     loginFailedBlockingDuration = 180;
-    
+
     random.nextBytes(key);
     adminCipherKey = HEX.convert(key).toLowerCase();
     adminLdapSearchScope = "SUB";
     adminLdapSearchAttribute = "uid";
     adminLdapSearchFilter = "(&(uid={0})(isMemberOf=cn=qr-travel-admin,ou=groups,dc=yourdomain,dc=de))";
-    
+
     influxDbForStatisticsEnabled = false;
     influxDbCron = "0 0/5 * * * ?";
     influxDbUrl = "https://influxdb.your.domain:8086/write?db=qr";
     influxDbUseAuthentication = true;
     influxDbUser = "qr";
-    influxDbPassword = "<not set>";    
-    domain = "your.domain";    
+    influxDbPassword = "<not set>";
+    domain = "your.domain";
     contextPath = "";
     addressClientClassName = "sonia.webapp.qrtravel.address.GenericAddressClientImpl";
   }
 
   //~--- methods --------------------------------------------------------------
-  /**
-   * Method description
-   *
-   *
-   * @param configFile
-   *
-   * @return
-   *
-   */
   public static Config readConfig(File configFile)
   {
     LOGGER.info("reading config file:" + configFile.getAbsolutePath());
@@ -173,27 +147,11 @@ public class Config
     return config;
   }
 
-  /**
-   * Method description
-   *
-   *
-   * @return
-   *
-   * @throws IOException
-   */
   public static Config readConfig() throws IOException
   {
     return readConfig(getDefaultConfigFile());
   }
 
-  /**
-   * Method description
-   *
-   *
-   * @param configFile
-   * @param force *
-   * @throws IOException
-   */
   public static void writeConfig(File configFile, boolean force) throws
     IOException
   {
@@ -220,38 +178,17 @@ public class Config
     }
   }
 
-  /**
-   * Method description
-   *
-   *
-   *
-   * @throws IOException
-   */
   public static void writeConfig(boolean force) throws IOException
   {
     writeConfig(getDefaultConfigFile(), force);
   }
 
   //~--- get methods ----------------------------------------------------------
-  /**
-   * Method description
-   *
-   *
-   * @param filename
-   *
-   * @return
-   */
   public static String getAbsoluteVarPath(String filename)
   {
     return getVarDirectoryName() + File.separator + filename;
   }
 
-  /**
-   * Method description
-   *
-   *
-   * @return
-   */
   public static String getAppHome()
   {
     return APP_HOME;
@@ -262,12 +199,6 @@ public class Config
     return getInstance(true);
   }
 
-  /**
-   * Method description
-   *
-   *
-   * @return
-   */
   public static synchronized Config getInstance(boolean readConfig)
   {
     if (config == null)
@@ -317,47 +248,21 @@ public class Config
     return config;
   }
 
-  /**
-   * Method description
-   *
-   *
-   * @return
-   */
   public static File getVarDirectory()
   {
     return new File(getVarDirectoryName());
   }
 
-  /**
-   * Method description
-   *
-   *
-   * @return
-   */
   public static String getVarDirectoryName()
   {
     return APP_HOME + File.separator + "var";
   }
 
-  /**
-   * Method description
-   *
-   *
-   * @param filename
-   *
-   * @return
-   */
   public static File getVarFile(String filename)
   {
     return new File(getAbsoluteVarPath(filename));
   }
 
-  /**
-   * Method description
-   *
-   *
-   * @return
-   */
   private static File getDefaultConfigFile()
   {
     String filename = APP_HOME + File.separator + CONFIG_DIRECTORY_NAME
@@ -440,8 +345,7 @@ public class Config
 
   @Getter
   private final long expirationTimeInDays;
-  
-  
+
   @Getter
   private final String checkMaxDurationCron;
 
@@ -450,7 +354,6 @@ public class Config
 
   @Getter
   private final long maxDurationInMinutes;
-  
 
   @Getter
   private final int maxLoginAttempts;
@@ -460,32 +363,31 @@ public class Config
 
   @Getter
   private final String apiAuthToken;
-  
+
   @Getter
   private final String adminCipherKey;
-  
+
   @Getter
   private final String adminLdapSearchFilter;
-  
+
   @Getter
   private final String adminLdapSearchAttribute;
 
   @Getter
   private final String adminLdapSearchScope;
 
-  @Getter  
+  @Getter
   private final int adminTokenTimeout;
-  
-  
+
   @Getter
   private final boolean influxDbForStatisticsEnabled;
 
   @Getter
   private final String influxDbCron;
-  
+
   @Getter
   private final String influxDbUrl;
-  
+
   @Getter
   private final boolean influxDbUseAuthentication;
 
@@ -496,10 +398,10 @@ public class Config
   @JsonSerialize(using = PasswordSerializer.class)
   @JsonDeserialize(using = PasswordDeserializer.class)
   private final String influxDbPassword;
-  
+
   @Getter
   private final String domain;
-  
+
   @Getter
   private final String contextPath;
 

@@ -41,7 +41,7 @@ public class PdfQrExporter
    * @param withSeat	true if seat number should be genereated
    * @param seat	for example "1A"
    *
-   * @throws IOException
+   * @throws IOException Throws IOException
    */
   public static void createQrPage(PdfDocument pdf, Document document,
     PdfPage page, String roomType, String roomName,
@@ -168,7 +168,7 @@ public class PdfQrExporter
    * @param url	base url for the web-Application (without parameters)
    * @param pin	pin for the room
    *
-   * @throws IOException
+   * @throws IOException Throws IOException
    */
   public static void generateDocument(PdfWriter writer, String roomType,
     String roomName, String url, String pin)
@@ -197,7 +197,7 @@ public class PdfQrExporter
    * @param rows	number of rows (with numbers)
    * @param columns	number of columns (with letters)
    *
-   * @throws IOException
+   * @throws IOException Throws IOException
    */
   public static void generateDocument(PdfWriter writer, String roomType,
     String roomName, String url, String pin,
@@ -229,7 +229,7 @@ public class PdfQrExporter
    *
    * @param args destFile roomdescription PIN rows columns
    *
-   * @throws IOException
+   * @throws IOException Throws IOException
    */
   public static void main(String... args) throws IOException
   {

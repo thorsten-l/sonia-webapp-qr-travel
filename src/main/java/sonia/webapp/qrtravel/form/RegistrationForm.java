@@ -1,6 +1,5 @@
 package sonia.webapp.qrtravel.form;
 
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -11,11 +10,12 @@ import sonia.webapp.qrtravel.QrTravelToken;
 
 /**
  *
- * @author Thorsten Ludewig <t.ludewig@ostfalia.de>
+ * @author Thorsten Ludewig (t.ludewig@ostfalia.de)
  */
 @ToString
 public class RegistrationForm implements AttendeeForm
 {
+  @Override
   public void setAttendeeData(String pin, QrTravelToken token)
   {
     this.pin = pin;

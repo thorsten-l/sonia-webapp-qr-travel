@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import sonia.webapp.qrtravel.Config;
 import sonia.webapp.qrtravel.db.Database;
 
+/**
+ * 
+ * @author Thorsten Ludewig (t.ludewig@ostfalia.de)
+ */
 @Controller
 public class QrViewController
 {

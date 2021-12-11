@@ -15,6 +15,10 @@ import sonia.webapp.qrtravel.db.Database;
 import sonia.webapp.qrtravel.db.Room;
 import sonia.webapp.qrtravel.ldap.LdapUtil;
 
+/**
+ *
+ * @author Thorsten Ludewig (t.ludewig@ostfalia.de)
+ */
 @Controller
 public class CsvExportController
 {
@@ -89,7 +93,8 @@ public class CsvExportController
   {
     List<Room> rooms = Database.listRooms();
 
-    response.setHeader("Content-Disposition", "attachment; filename=QR-Raumuebersicht.csv");
+    response.setHeader("Content-Disposition",
+      "attachment; filename=QR-Raumuebersicht.csv");
 
     try
     {
@@ -109,7 +114,7 @@ public class CsvExportController
         String[] row = new String[]
         {
           Integer.toString(++counter),
-          r.getPin(), r.getDescription(), r.getRoomType().getDescription(), 
+          r.getPin(), r.getDescription(), r.getRoomType().getDescription(),
           LdapUtil.getLocalityFromUid(r.getOwnerUid()), r.getDomain()
         };
 

@@ -10,7 +10,7 @@ import sonia.webapp.qrtravel.db.Database;
 
 /**
  *
- * @author Thorsten Ludewig <t.ludewig@ostfalia.de>
+ * @author Thorsten Ludewig (t.ludewig@ostfalia.de)
  */
 public class CheckMaxDurationJob implements Job
 {

@@ -17,7 +17,7 @@ import sonia.webapp.qrtravel.QrTravelAdminToken;
 
 /**
  *
- * @author Thorsten Ludewig <t.ludewig@ostfalia.de>
+ * @author Thorsten Ludewig (t.ludewig@ostfalia.de)
  */
 @Component
 @Order(1)

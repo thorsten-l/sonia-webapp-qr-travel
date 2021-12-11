@@ -27,7 +27,7 @@ import sonia.webapp.qrtravel.util.ErrorMessage;
 
 /**
  *
- * @author Dr.-Ing. Thorsten Ludewig <t.ludewig@ostfalia.de>
+ * @author Thorsten Ludewig (t.ludewig@ostfalia.de)
  */
 @Controller
 @Scope("session")

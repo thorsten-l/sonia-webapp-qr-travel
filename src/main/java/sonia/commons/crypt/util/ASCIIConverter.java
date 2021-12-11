@@ -1,30 +1,12 @@
-/**
- * OSTFALIA, COMPUTING CENTER CONFIDENTIAL
- *
- * 2000 - 2013 Ostfalia University of Applied Sciences, Computing Center
- * All Rights Reserved.
- *
- * NOTICE: All information contained herein is, and remains the property of
- * Ostfalia University of Applied Sciences, Computing Center and its suppliers.
- * The intellectual and technical concepts contained herein are proprietary to
- * Ostfalia University of Applied Sciences, Computing Center. Dissemination of this
- * information or reproduction of this material is strictly forbidden unless prior
- * written permission is obtained from Ostfalia University of Applied Sciences,
- * Computing Center.
- */
-
-
-
 package sonia.commons.crypt.util;
 
 /**
  *
- * @author Thorsten Ludewig <t.ludewig@ostfalia.de>
+ * @author Thorsten Ludewig (t.ludewig@ostfalia.de)
  */
 public class ASCIIConverter
 {
 
-  /** Field description */
   public final static String[][] SPECIAL_CHARACTERS_MAPPING =
   {
     { "À", "A" }, { "Á", "A" }, { "Â", "A" }, { "Ã", "A" }, { "Ä", "Ae" },
@@ -41,7 +23,6 @@ public class ASCIIConverter
     { "ý", "y" }, { "ÿ", "y" }
   };
 
-  /** Field description */
   public final static String[] STANDARD_CHARACTERS =
   {
     "Q", "W", "E", "R", "T", "Z", "U", "I", "O", "P", "A", "S", "D", "F", "G",
@@ -52,29 +33,11 @@ public class ASCIIConverter
 
   //~--- methods --------------------------------------------------------------
 
-  /**
-   * Method description
-   *
-   *
-   * @param str
-   *
-   * @return
-   */
   public static String convert(String str)
   {
     return convert(str, false);
   }
 
-  /**
-   * Method description
-   *
-   *
-   * @param str
-   * @param removeUnknownChars
-   * @param additionalKnownChars
-   *
-   * @return
-   */
   public static String convert(String str, boolean removeUnknownChars,
     String... additionalKnownChars)
   {

@@ -9,18 +9,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import sonia.webapp.qrtravel.Config;
 import sonia.webapp.qrtravel.QrTravelAdminToken;
 import static sonia.webapp.qrtravel.QrTravelAdminToken.QR_TRAVEL_ADMIN_TOKEN;
 import static sonia.webapp.qrtravel.QrTravelAdminToken.UNKNOWN_ADMIN_TOKEN;
-import sonia.webapp.qrtravel.form.AdminRoomForm;
-import sonia.webapp.qrtravel.form.RoomPinForm;
 import sonia.webapp.qrtravel.util.ErrorMessage;
 
 /**
  *
- * @author Dr.-Ing. Thorsten Ludewig <t.ludewig@ostfalia.de>
+ * @author Thorsten Ludewig (t.ludewig@ostfalia.de)
  */
 @Controller
 @Scope("session")
@@ -28,7 +25,8 @@ public class AdminTraceContactsController
 {
   private final static String QR_TRAVEL_ERROR_MESSAGE = "QR_TRAVEL_ERROR_MESSAGE";
 
-  private final static Logger LOGGER = LoggerFactory.getLogger(AdminTraceContactsController.class.getName());
+  private final static Logger LOGGER = LoggerFactory.getLogger(
+    AdminTraceContactsController.class.getName());
 
   private final static Config CONFIG = Config.getInstance();
 
@@ -36,7 +34,7 @@ public class AdminTraceContactsController
   public String httpGetAdminTracePage(
     @CookieValue(value = QR_TRAVEL_ADMIN_TOKEN,
                  defaultValue = UNKNOWN_ADMIN_TOKEN) String tokenValue,
-    HttpServletResponse response, HttpServletRequest request, Model model )
+    HttpServletResponse response, HttpServletRequest request, Model model)
   {
     LOGGER.debug("Admin trace contacts GET request");
     QrTravelAdminToken token = QrTravelAdminToken.fromCookieValue(tokenValue);

@@ -24,7 +24,7 @@ import sonia.webapp.qrtravel.util.ErrorMessage;
 
 /**
  *
- * @author Dr. Thorsten Ludewig <t.ludewig@gmail.com>
+ * @author Thorsten Ludewig (t.ludewig@ostfalia.de)
  */
 @Controller
 public class LoginController

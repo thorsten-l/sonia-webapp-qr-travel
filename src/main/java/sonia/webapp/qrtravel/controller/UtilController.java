@@ -17,6 +17,10 @@ import sonia.webapp.qrtravel.QrTravelToken;
 import static sonia.webapp.qrtravel.QrTravelToken.QR_TRAVEL_TOKEN;
 import static sonia.webapp.qrtravel.QrTravelToken.UNKNOWN_TOKEN;
 
+/**
+ * 
+ * @author Thorsten Ludewig (t.ludewig@ostfalia.de)
+ */
 @RestController
 public class UtilController
 {

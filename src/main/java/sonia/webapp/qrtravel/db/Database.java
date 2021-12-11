@@ -22,7 +22,7 @@ import sonia.webapp.qrtravel.Config;
 
 /**
  *
- * @author Thorsten Ludewig <t.ludewig@ostfalia.de>
+ * @author Thorsten Ludewig (t.ludewig@ostfalia.de)
  */
 public class Database
 {
@@ -103,7 +103,7 @@ public class Database
   public static void deleteRoom(String pin)
   {
     LOGGER.debug("Delete room = {}", pin);
-   
+
     try (Session session = getEntityManager().unwrap(Session.class))
     {
       Transaction transaction = session.beginTransaction();

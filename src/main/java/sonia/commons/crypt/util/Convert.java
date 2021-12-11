@@ -1,19 +1,3 @@
-/**
- * OSTFALIA, COMPUTING CENTER CONFIDENTIAL
- *
- * 2000 - 2013 Ostfalia University of Applied Sciences, Computing Center
- * All Rights Reserved.
- *
- * NOTICE: All information contained herein is, and remains the property of
- * Ostfalia University of Applied Sciences, Computing Center and its suppliers.
- * The intellectual and technical concepts contained herein are proprietary to
- * Ostfalia University of Applied Sciences, Computing Center. Dissemination of this
- * information or reproduction of this material is strictly forbidden unless prior
- * written permission is obtained from Ostfalia University of Applied Sciences,
- * Computing Center.
- */
-
-
 package sonia.commons.crypt.util;
 
 //~--- JDK imports ------------------------------------------------------------
@@ -21,8 +5,9 @@ package sonia.commons.crypt.util;
 import java.math.BigInteger;
 
 /**
- * <p>A collection of utility methods used throughout this project.</p>
- *
+ * A collection of utility methods used throughout this project.
+ * 
+ * @author Thorsten Ludewig (t.ludewig@ostfalia.de)
  * @version $Revision: 1.11 $
  */
 public class Convert
@@ -30,7 +15,6 @@ public class Convert
 
   // Base-64 charset
 
-  /** Field description */
   private static final String BASE64_CHARS =
     "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz./";
 
@@ -38,10 +22,8 @@ public class Convert
   // -------------------------------------------------------------------------
   // Hex charset
 
-  /** Field description */
   private static final char[] HEX_DIGITS = "0123456789ABCDEF".toCharArray();
 
-  /** Field description */
   private static final char[] BASE64_CHARSET = BASE64_CHARS.toCharArray();
 
   //~--- constructors ---------------------------------------------------------
@@ -58,8 +40,7 @@ public class Convert
   //~--- methods --------------------------------------------------------------
 
   /**
-   * <p>Returns a hexadecimal dump of the trimmed bytes of a {@link BigInteger}.
-   * </p>
+   * Returns a hexadecimal dump of the trimmed bytes of a {@link BigInteger}.
    *
    * @param x the {@link BigInteger} to display.
    * @return the string representation of the designated {@link BigInteger}.
@@ -70,13 +51,13 @@ public class Convert
   }
 
   /**
-   * <p>The inverse function of the above.</p>
+   * The inverse function of the above.
    *
-   * <p>Converts a string representing the encoding of some bytes in Base-64
-   * to their original form.</p>
+   * Converts a string representing the encoding of some bytes in Base-64
+   * to their original form.
    *
    * @param str the Base-64 encoded representation of some byte(s).
-   * @return the bytes represented by the <code>str</code>.
+   * @return the bytes represented by the str.
    * @see #toBase64(byte[])
    */
   public static final byte[] fromBase64(String str)
@@ -167,11 +148,11 @@ public class Convert
   }
 
   /**
-   * <p>Converts a designated byte array to a Base-64 representation, with the
+   * Converts a designated byte array to a Base-64 representation, with the
    * exceptions that (a) leading 0-byte(s) are ignored, and (b) the character
-   * '.' (dot) shall be used instead of "+' (plus).</p>
+   * '.' (dot) shall be used instead of "+' (plus).
    *
-   * <p>Used by SASL password file manipulation primitives.</p>
+   * Used by SASL password file manipulation primitives.
    *
    * @param buffer an arbitrary sequence of bytes to represent in Base-64.
    * @return unpadded (without the '=' character(s)) Base-64 representation of
@@ -263,12 +244,12 @@ public class Convert
   }
 
   /**
-   * <p>Returns a string of hexadecimal digits from a byte array, starting at
-   * <code>offset</code> and consisting of <code>length</code> bytes. Each byte
-   * is converted to 2 hex symbols; zero(es) included.</p>
+   * Returns a string of hexadecimal digits from a byte array, starting at
+   * offset and consisting of length bytes. Each byte
+   * is converted to 2 hex symbols; zero(es) included.
    *
-   * <p>The byte array is treated as a large little-endian integer, and
-   * is returned as a large big-endian integer.</p>
+   * The byte array is treated as a large little-endian integer, and
+   * is returned as a large big-endian integer.
    *
    * @param ba the byte array to convert.
    * @param offset the index from which to start considering the bytes to
@@ -293,9 +274,9 @@ public class Convert
   }
 
   /**
-   * <p>Returns a string of hexadecimal digits from a byte array, starting at
-   * <code>offset</code> and consisting of <code>length</code> bytes. Each byte
-   * is converted to 2 hex symbols; zero(es) included.</p>
+   * Returns a string of hexadecimal digits from a byte array, starting at
+   * offset and consisting of length bytes. Each byte
+   * is converted to 2 hex symbols; zero(es) included.
    *
    * @param ba the byte array to convert.
    * @param offset the index from which to start considering the bytes to
@@ -319,19 +300,6 @@ public class Convert
     return new String(buf);
   }
 
-  /**
-   * <p>Similar to the <code>toString()</code> method except that the Unicode
-   * escape character is inserted before every pair of bytes. Useful to
-   * externalise byte arrays that will be constructed later from such strings;
-   * eg. s-box values.</p>
-   *
-   *
-   * @param ba
-   * @param offset
-   * @param length
-   *
-   * @return
-   */
   public static final String toUnicodeString(byte[] ba, int offset, int length)
   {
     StringBuffer sb = new StringBuffer();
@@ -365,9 +333,9 @@ public class Convert
   // BigInteger utilities ----------------------------------------------------
 
   /**
-   * <p>Treats the input as the MSB representation of a number, and discards
+   * Treats the input as the MSB representation of a number, and discards
    * leading zero elements. For efficiency, the input is simply returned if no
-   * leading zeroes are found.</p>
+   * leading zeroes are found.
    *
    * @param n the {@link BigInteger} to trim.
    * @return the byte array representation of the designated {@link BigInteger}
@@ -398,8 +366,8 @@ public class Convert
   }
 
   /**
-   * <p>Returns a string of 2 hexadecimal digits (most significant digit first)
-   * corresponding to the lowest 8 bits of <code>n</code>.</p>
+   * Returns a string of 2 hexadecimal digits (most significant digit first)
+   * corresponding to the lowest 8 bits of n.
    *
    * @param n the byte value to convert.
    * @return a string of 2 hex characters representing the input.
@@ -412,16 +380,16 @@ public class Convert
   }
 
   /**
-   * <p>Dumps a byte array as a string, in a format that is easy to read for
-   * debugging. The string <code>m</code> is prepended to the start of each
-   * line.</p>
+   * Dumps a byte array as a string, in a format that is easy to read for
+   * debugging. The string m is prepended to the start of each
+   * line.
    *
-   * <p>If <code>offset</code> and <code>length</code> are omitted, the whole
-   * array is used. If <code>m</code> is omitted, nothing is prepended to each
-   * line.</p>
+   * If offset and length are omitted, the whole
+   * array is used. If m is omitted, nothing is prepended to each
+   * line.
    *
    * @param data the byte array to be dumped.
-   * @param offset the offset within <i>data</i> to start from.
+   * @param offset the offset within data to start from.
    * @param length the number of bytes to dump.
    * @param m a string to be prepended to each line.
    * @return a string containing the result.
@@ -480,14 +448,7 @@ public class Convert
     return sb.toString();
   }
 
-  /**
-   * Method description
-   *
-   *
-   * @param data
-   *
-   * @return
-   */
+  
   public static String dumpString(byte[] data)
   {
     return (data == null)
@@ -495,15 +456,7 @@ public class Convert
            : dumpString(data, 0, data.length, "");
   }
 
-  /**
-   * Method description
-   *
-   *
-   * @param data
-   * @param m
-   *
-   * @return
-   */
+ 
   public static String dumpString(byte[] data, String m)
   {
     return (data == null)
@@ -511,28 +464,18 @@ public class Convert
            : dumpString(data, 0, data.length, m);
   }
 
-  /**
-   * Method description
-   *
-   *
-   * @param data
-   * @param offset
-   * @param length
-   *
-   * @return
-   */
   public static String dumpString(byte[] data, int offset, int length)
   {
     return dumpString(data, offset, length, "");
   }
 
   /**
-   * <p>Returns a number from <code>0</code> to <code>15</code> corresponding
-   * to the designated hexadecimal digit.</p>
+   * Returns a number from 0 to 15 corresponding
+   * to the designated hexadecimal digit.
    *
    * @param c a hexadecimal ASCII symbol.
    *
-   * @return
+   * @return int value
    */
   public static int fromDigit(char c)
   {
@@ -561,7 +504,7 @@ public class Convert
   }
 
   /**
-   * <p>Returns a byte array from a string of hexadecimal digits.</p>
+   * Returns a byte array from a string of hexadecimal digits.
    *
    * @param s a string of hexadecimal ASCII characters
    * @return the decoded byte array from the input hexadecimal string.
@@ -586,14 +529,6 @@ public class Convert
     return result;
   }
 
-  /**
-   * Method description
-   *
-   *
-   * @param s
-   *
-   * @return
-   */
   public static byte[] toBytesFromUnicode(String s)
   {
     int limit = s.length() * 2;
@@ -612,9 +547,9 @@ public class Convert
   }
 
   /**
-   * <p>Returns a byte array from a string of hexadecimal digits, interpreting
+   * Returns a byte array from a string of hexadecimal digits, interpreting
    * them as a large big-endian integer and returning it as a large
-   * little-endian integer.</p>
+   * little-endian integer.
    *
    * @param s a string of hexadecimal ASCII characters
    * @return the decoded byte array from the input hexadecimal string.
@@ -640,16 +575,14 @@ public class Convert
   }
 
   /**
-   * <p>Returns a string of hexadecimal digits from a byte array. Each byte is
+   * Returns a string of hexadecimal digits from a byte array. Each byte is
    * converted to 2 hex symbols; zero(es) included. The argument is
    * treated as a large little-endian integer and is returned as a
-   * large big-endian integer.</p>
+   * large big-endian integer.
    *
-   * <p>This method calls the method with same name and three arguments as:</p>
+   * This method calls the method with same name and three arguments as:
    *
-   * <pre>
    *    toReversedString(ba, 0, ba.length);
-   * </pre>
    *
    * @param ba the byte array to convert.
    * @return a string of hexadecimal characters (two for each byte)
@@ -664,14 +597,12 @@ public class Convert
   // -------------------------------------------------------------------------
 
   /**
-   * <p>Returns a string of hexadecimal digits from a byte array. Each byte is
-   * converted to 2 hex symbols; zero(es) included.</p>
+   * Returns a string of hexadecimal digits from a byte array. Each byte is
+   * converted to 2 hex symbols; zero(es) included.
    *
-   * <p>This method calls the method with same name and three arguments as:</p>
+   * This method calls the method with same name and three arguments as:
    *
-   * <pre>
    *    toString(ba, 0, ba.length);
-   * </pre>
    *
    * @param ba the byte array to convert.
    * @return a string of hexadecimal characters (two for each byte)
@@ -683,8 +614,8 @@ public class Convert
   }
 
   /**
-   * <p>Returns a string of 8 hexadecimal digits (most significant digit first)
-   * corresponding to the unsigned integer <code>n</code>.</p>
+   * Returns a string of 8 hexadecimal digits (most significant digit first)
+   * corresponding to the unsigned integer n.
    *
    * @param n the unsigned integer to convert.
    * @return a hexadecimal string 8-character long.
@@ -702,14 +633,6 @@ public class Convert
     return new String(buf);
   }
 
-  /**
-   * <p>Returns a string of hexadecimal digits from an integer array. Each int
-   * is converted to 4 hex symbols.</p>
-   *
-   * @param ia
-   *
-   * @return
-   */
   public static String toString(int[] ia)
   {
     int length = ia.length;
@@ -732,8 +655,8 @@ public class Convert
   }
 
   /**
-   * <p>Returns a string of 16 hexadecimal digits (most significant digit first)
-   * corresponding to the unsigned long <code>n</code>.</p>
+   * Returns a string of 16 hexadecimal digits (most significant digit first)
+   * corresponding to the unsigned long n.
    *
    * @param n the unsigned long to convert.
    * @return a hexadecimal string 16-character long.
@@ -751,33 +674,12 @@ public class Convert
     return new String(b);
   }
 
-  /**
-   * <p>Similar to the <code>toString()</code> method except that the Unicode
-   * escape character is inserted before every pair of bytes. Useful to
-   * externalise byte arrays that will be constructed later from such strings;
-   * eg. s-box values.</p>
-   *
-   *
-   * @param ba
-   *
-   * @return
-   */
+
   public static String toUnicodeString(byte[] ba)
   {
     return toUnicodeString(ba, 0, ba.length);
   }
 
-  /**
-   * <p>Similar to the <code>toString()</code> method except that the Unicode
-   * escape character is inserted before every pair of bytes. Useful to
-   * externalise integer arrays that will be constructed later from such
-   * strings; eg. s-box values.</p>
-   *
-   *
-   * @param ia
-   *
-   * @return
-   */
   public static String toUnicodeString(int[] ia)
   {
     StringBuffer sb = new StringBuffer();

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package sonia.webapp.qrtravel;
 
 import lombok.Getter;
@@ -11,7 +6,7 @@ import org.kohsuke.args4j.Option;
 
 /**
  *
- * @author Thorsten Ludewig <t.ludewig@ostfalia.de>th
+ * @author Thorsten Ludewig (t.ludewig@ostfalia.de)
  */
 public class Options
 {

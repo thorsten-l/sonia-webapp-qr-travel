@@ -5,7 +5,7 @@ import lombok.ToString;
 
 /**
  *
- * @author Thorsten Ludewig <t.ludewig@ostfalia.de>
+ * @author Thorsten Ludewig (t.ludewig@ostfalia.de)
  */
 @ToString
 public class QRExportInfo

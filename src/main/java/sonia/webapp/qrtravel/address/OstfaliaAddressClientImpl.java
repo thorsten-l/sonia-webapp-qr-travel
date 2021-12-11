@@ -8,7 +8,7 @@ import sonia.webapp.qrtravel.Config;
 
 /**
  *
- * @author Dr.-Ing. Thorsten Ludewig <t.ludewig@ostfalia.de>
+ * @author Thorsten Ludewig (t.ludewig@ostfalia.de)
  */
 public class OstfaliaAddressClientImpl extends GenericAddressClientImpl
 {

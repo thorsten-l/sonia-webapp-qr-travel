@@ -4,7 +4,7 @@ import lombok.Getter;
 
 /**
  *
- * @author th
+ * @author Thorsten Ludewig (t.ludewig@ostfalia.de)
  */
 public class ApiResponse
 {
